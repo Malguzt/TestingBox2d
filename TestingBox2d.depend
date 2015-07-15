@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1436655031 source:/home/jlenscak/games/TestingBox2d/main.cpp
+	"Game.h"
+
+1436716471 /home/jlenscak/games/TestingBox2d/include/Game.h
+	"includes.h"
+	"Ball.h"
+
+1436661010 /home/jlenscak/games/TestingBox2d/include/includes.h
+	<stdio.h>
+	<iostream>
+	<Box2D/Box2D.h>
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
+
+1436917927 /home/jlenscak/games/TestingBox2d/include/Ball.h
+	"includes.h"
+
+1436916458 source:/home/jlenscak/games/TestingBox2d/src/Ball.cpp
+	"Ball.h"
+
+1436914804 source:/home/jlenscak/games/TestingBox2d/src/Game.cpp
+	"Game.h"
+
+1436655587 source:/home/jlenscak/games/TestingBox2d/src/includes.cpp
+	"includes.h"
+
