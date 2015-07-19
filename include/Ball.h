@@ -9,6 +9,7 @@ class Ball
         virtual ~Ball();
         void updatePosition();
         void draw();
+        void applyForce(float x, float y);
     protected:
     private:
         Sprite *sprite;

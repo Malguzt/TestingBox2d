@@ -24,14 +24,17 @@ void Ball::defineBody(b2World* world)
     bodyDef.position.Set(10.0f, 10.0f);
     body = world->CreateBody(&bodyDef);
 
-    b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(10.0f, 10.0f);
+//    b2PolygonShape dynamicBox;
+//    dynamicBox.SetAsBox(10.0f, 10.0f);
+
+    b2CircleShape dynamicCircle;
+    dynamicCircle.m_radius = 10.0f;
 
     b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;
+    fixtureDef.shape = &dynamicCircle;
     fixtureDef.density = 10.0f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.restitution = 1.0f;
+    fixtureDef.restitution = 0.90f;
     body->CreateFixture(&fixtureDef);
 }
 
@@ -60,9 +63,20 @@ void Ball::updatePosition()
 {
     b2Vec2 pos = body->GetPosition();
     sprite->setPosition(pos.x, pos.y);
+    float32 angle = body->GetAngle() * 180 / 3.14f;
+    if(angle != 0)
+    {
+        std::cout << angle << "\n";
+    }
+    sprite->setRotation(angle);
 }
 
 void Ball::draw()
 {
     wnd->draw(*sprite);
+}
+
+void Ball::applyForce(float x, float y)
+{
+    body->ApplyLinearImpulse(b2Vec2(x, y), body->GetWorldCenter(), false);
 }

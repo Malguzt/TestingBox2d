@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "Ball.h"
+#include "../libs/SFMLRenderer.h"
 
 using namespace sf;
 using namespace std;
@@ -14,9 +15,11 @@ class Game
         virtual ~Game();
         void Go();
     private:
+        float impulseValue = 10000.0f;
         RenderWindow *pWnd;
         Ball *theBall;
         b2World *phyWorld;
+        SFMLRenderer *debugRender;
         float frameTime;
         int fps;
         void setZoom();

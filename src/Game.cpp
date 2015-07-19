@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-    pWnd = new RenderWindow(VideoMode(1200, 768), "Testin box2d", Style::Fullscreen);
+    pWnd = new RenderWindow(VideoMode(600, 600), "Testin box2d");
 	pWnd->setVisible(true);
 	fps = 60;
 	pWnd->setFramerateLimit(fps);
@@ -58,10 +58,10 @@ void Game::processEvent(Event &evt)
 
 void Game::processKey(int keyCode)
 {
-//    if(Keyboard::isKeyPressed(Keyboard::Right)) theRock.changeRadius(2);
-//    if(Keyboard::isKeyPressed(Keyboard::Left)) theRock.changeRadius(-2);
-//    if(Keyboard::isKeyPressed(Keyboard::Up)) theRock.changeSpeed(2);
-//    if(Keyboard::isKeyPressed(Keyboard::Down)) theRock.changeSpeed(-2);
+    if(Keyboard::isKeyPressed(Keyboard::Right)) theBall->applyForce(impulseValue, 0.0f);
+    if(Keyboard::isKeyPressed(Keyboard::Left)) theBall->applyForce(-impulseValue, 0.0f);
+    if(Keyboard::isKeyPressed(Keyboard::Up)) theBall->applyForce(0.0f, -impulseValue);
+    if(Keyboard::isKeyPressed(Keyboard::Down)) theBall->applyForce(0.0f, impulseValue);
 
     switch(keyCode)
     {
@@ -75,6 +75,7 @@ void Game::updateGame()
 {
 	phyWorld->Step(frameTime,8,8);
 	phyWorld->ClearForces();
+	phyWorld->DrawDebugData();
 	theBall->updatePosition();
 }
 
@@ -86,6 +87,12 @@ void Game::drawGame()
 void Game::initPhysics(){
 	//Set the gravity
 	phyWorld = new b2World(b2Vec2(0.0f, 9.8f));
+
+	//Set the debuger
+	debugRender = new SFMLRenderer(pWnd);
+	debugRender->SetFlags(UINT_MAX);
+	phyWorld->SetDebugDraw(debugRender);
+
 
 	//Create floor and walls
 
@@ -105,7 +112,7 @@ void Game::initPhysics(){
 
 b2Body* Game::CreateRectangularStaticBody(b2World *phyWorld, float sizeX, float sizeY){
     b2Body* body = CreateStaticBody(phyWorld);
-    b2FixtureDef box = CreateRectangularFixtureDef(sizeX,sizeY,0.0f,0.0f,0.0f);
+    b2FixtureDef box = CreateRectangularFixtureDef(sizeX,sizeY,0.0f,0.5f,0.5f);
     body->CreateFixture(&box);
 
     return body;
