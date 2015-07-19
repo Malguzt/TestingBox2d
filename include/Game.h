@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "includes.h"
-#include "Ball.h"
+#include "Ragdoll.h"
 #include "../libs/SFMLRenderer.h"
 
 using namespace sf;
@@ -17,7 +17,7 @@ class Game
     private:
         float impulseValue = 10000.0f;
         RenderWindow *pWnd;
-        Ball *theBall;
+        Ragdoll *theRagdoll;
         b2World *phyWorld;
         SFMLRenderer *debugRender;
         float frameTime;

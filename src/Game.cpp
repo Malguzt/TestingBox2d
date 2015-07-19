@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-    pWnd = new RenderWindow(VideoMode(600, 600), "Testin box2d");
+    pWnd = new RenderWindow(VideoMode(1280, 768), "Testin box2d");
 	pWnd->setVisible(true);
 	fps = 60;
 	pWnd->setFramerateLimit(fps);
@@ -11,12 +11,12 @@ Game::Game()
     setZoom();
 	initPhysics();
 
-    theBall = new Ball(phyWorld, pWnd);
+    theRagdoll = new Ragdoll(phyWorld, pWnd);
 }
 
 Game::~Game()
 {
-    delete theBall;
+    delete theRagdoll;
     delete phyWorld;
     delete pWnd;
 }
@@ -58,10 +58,10 @@ void Game::processEvent(Event &evt)
 
 void Game::processKey(int keyCode)
 {
-    if(Keyboard::isKeyPressed(Keyboard::Right)) theBall->applyForce(impulseValue, 0.0f);
-    if(Keyboard::isKeyPressed(Keyboard::Left)) theBall->applyForce(-impulseValue, 0.0f);
-    if(Keyboard::isKeyPressed(Keyboard::Up)) theBall->applyForce(0.0f, -impulseValue);
-    if(Keyboard::isKeyPressed(Keyboard::Down)) theBall->applyForce(0.0f, impulseValue);
+    if(Keyboard::isKeyPressed(Keyboard::Right)) theRagdoll->applyForce(impulseValue, 0.0f);
+    if(Keyboard::isKeyPressed(Keyboard::Left)) theRagdoll->applyForce(-impulseValue, 0.0f);
+    if(Keyboard::isKeyPressed(Keyboard::Up)) theRagdoll->applyForce(0.0f, -impulseValue);
+    if(Keyboard::isKeyPressed(Keyboard::Down)) theRagdoll->applyForce(0.0f, impulseValue);
 
     switch(keyCode)
     {
@@ -75,13 +75,13 @@ void Game::updateGame()
 {
 	phyWorld->Step(frameTime,8,8);
 	phyWorld->ClearForces();
-	phyWorld->DrawDebugData();
-	theBall->updatePosition();
+//	phyWorld->DrawDebugData();
+	theRagdoll->updatePosition();
 }
 
 void Game::drawGame()
 {
-    theBall->draw();
+    theRagdoll->draw();
 }
 
 void Game::initPhysics(){

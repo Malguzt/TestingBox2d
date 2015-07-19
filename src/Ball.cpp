@@ -1,12 +1,12 @@
 #include "Ball.h"
 
-Ball::Ball(b2World* world, RenderWindow *window)
+Ball::Ball(b2World* world, RenderWindow *window, float x, float y)
 {
     wnd = window;
     texture = new Texture();
     texture->loadFromFile("img/ball.png");
 
-    defineBody(world);
+    defineBody(world, x, y);
     defineSize();
 }
 
@@ -15,20 +15,20 @@ Ball::~Ball()
     //dtor
 }
 
-void Ball::defineBody(b2World* world)
+void Ball::defineBody(b2World* world, float x, float y)
 {
     sprite = new Sprite(*texture);
 
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(10.0f, 10.0f);
+    bodyDef.position.Set(x, y);
     body = world->CreateBody(&bodyDef);
 
 //    b2PolygonShape dynamicBox;
 //    dynamicBox.SetAsBox(10.0f, 10.0f);
 
     b2CircleShape dynamicCircle;
-    dynamicCircle.m_radius = 10.0f;
+    dynamicCircle.m_radius = 5.0f;
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicCircle;
@@ -64,10 +64,6 @@ void Ball::updatePosition()
     b2Vec2 pos = body->GetPosition();
     sprite->setPosition(pos.x, pos.y);
     float32 angle = body->GetAngle() * 180 / 3.14f;
-    if(angle != 0)
-    {
-        std::cout << angle << "\n";
-    }
     sprite->setRotation(angle);
 }
 
