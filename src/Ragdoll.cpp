@@ -1,23 +1,40 @@
 #include "Ragdoll.h"
+#include "Head.h"
+#include "Body.h"
+#include "includes.h"
 
-Ragdoll::Ragdoll(b2World* world, RenderWindow *window)
+Ragdoll::Ragdoll(b2World* theWorld, RenderWindow *theWindow)
 {
-    b2DistanceJointDef* jointDeff = new b2DistanceJointDef();
-    jointDeff->length = 10.0f;
-    for(int it = 0; it < numberOfParts; ++it)
-    {
-        parts[it] = new Ball(world, window, 10.0f + 10.0f * it, 10.0f);
-        if(it > 0)
-        {
-            jointDeff->bodyA = parts[it]->body;
-            jointDeff->bodyB = parts[it - 1]->body;
-            joints[it] = world->CreateJoint(jointDeff);
-        }
-    }
+    world = theWorld;
+    window = theWindow;
 
-    jointDeff->bodyA = parts[numberOfParts - 1]->body;
-    jointDeff->bodyB = parts[0]->body;
-    joints[numberOfParts - 1] = world->CreateJoint(jointDeff);
+    createHead();
+}
+
+void Ragdoll::createHead()
+{
+    parts[HEAD] = new Head(world, window, 20.0f, 10.0f);
+    parts[BODY] = new Body(world, window, 10.0f, 20.0f);
+    joinParts(parts[HEAD]->body, parts[BODY]->body);
+}
+
+void Ragdoll::joinParts(b2Body *bodyA, b2Body *bodyB)
+{
+    float width = 1.0f;
+    b2DistanceJointDef* jointDeff = new b2DistanceJointDef();
+    jointDeff->length = 0.0f;
+    jointDeff->frequencyHz = 30.0f;
+    jointDeff->dampingRatio = 1.0f;
+    jointDeff->bodyA = bodyA;
+    jointDeff->bodyB = bodyB;
+
+    jointDeff->localAnchorA = b2Vec2(width, 5.0f);
+    jointDeff->localAnchorB = b2Vec2(width, -8.0f);
+    world->CreateJoint(jointDeff);
+
+    jointDeff->localAnchorA = b2Vec2(-width, 5.0f);
+    jointDeff->localAnchorB = b2Vec2(-width, -8.0f);
+    world->CreateJoint(jointDeff);
 }
 
 Ragdoll::~Ragdoll()
@@ -46,5 +63,5 @@ void Ragdoll::updatePosition()
 
 void Ragdoll::applyForce(float x, float y)
 {
-    parts[0]->applyForce(x, y);
+    parts[HEAD]->applyForce(x, y);
 }

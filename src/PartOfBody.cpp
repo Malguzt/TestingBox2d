@@ -1,44 +1,52 @@
-#include "Ball.h"
+#include "PartOfBody.h"
 
-Ball::Ball(b2World* world, RenderWindow *window, float x, float y)
+PartOfBody::PartOfBody(b2World* theWorld, RenderWindow *window, float x, float y)
 {
     wnd = window;
     texture = new Texture();
-    texture->loadFromFile("img/ball.png");
-
-    defineBody(world, x, y);
-    defineSize();
+    world = theWorld;
 }
 
-Ball::~Ball()
+PartOfBody::~PartOfBody()
 {
-    //dtor
+    delete texture;
+    delete sprite;
 }
 
-void Ball::defineBody(b2World* world, float x, float y)
+void PartOfBody::draw()
 {
-    sprite = new Sprite(*texture);
+    wnd->draw(*sprite);
+}
 
+
+void PartOfBody::createBody(b2Shape &shape, float x, float y)
+{
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(x, y);
     body = world->CreateBody(&bodyDef);
 
-//    b2PolygonShape dynamicBox;
-//    dynamicBox.SetAsBox(10.0f, 10.0f);
-
-    b2CircleShape dynamicCircle;
-    dynamicCircle.m_radius = 5.0f;
-
     b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicCircle;
+    fixtureDef.shape = &shape;
     fixtureDef.density = 10.0f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.restitution = 0.90f;
+    fixtureDef.restitution = 0.5f;
     body->CreateFixture(&fixtureDef);
 }
 
-void Ball::defineSize()
+void PartOfBody::updatePosition()
+{
+    sprite->setPosition(body->GetPosition().x, body->GetPosition().y);
+    float32 angle = body->GetAngle() * 180 / 3.14f;
+    sprite->setRotation(angle);
+}
+
+void PartOfBody::applyForce(float x, float y)
+{
+    body->ApplyLinearImpulse(b2Vec2(x, y), body->GetWorldCenter(), true);
+}
+
+void PartOfBody::defineSize()
 {
 	b2AABB aabb;
 	aabb.lowerBound = b2Vec2(FLT_MAX, FLT_MAX);
@@ -57,22 +65,4 @@ void Ball::defineSize()
 	sprite->setScale(sf::Vector2f(sizeX, sizeY));
 	sprite->setOrigin(Vector2f(originX, originY));
 	sprite->setPosition(body->GetPosition().x, body->GetPosition().y);
-}
-
-void Ball::updatePosition()
-{
-    b2Vec2 pos = body->GetPosition();
-    sprite->setPosition(pos.x, pos.y);
-    float32 angle = body->GetAngle() * 180 / 3.14f;
-    sprite->setRotation(angle);
-}
-
-void Ball::draw()
-{
-    wnd->draw(*sprite);
-}
-
-void Ball::applyForce(float x, float y)
-{
-    body->ApplyLinearImpulse(b2Vec2(x, y), body->GetWorldCenter(), false);
 }
