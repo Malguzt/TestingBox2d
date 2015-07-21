@@ -23,8 +23,12 @@ class Ragdoll
         RenderWindow *window;
         int numberOfParts = NUM_OF_PARTS;
         PartOfBody* parts[NUM_OF_PARTS];
-        void createHead();
-        void joinParts(b2Body *bodyA, b2Body *bodyB);
+        void createHeadAndBody();
+        void createArms();
+        void initJointDeff();
+        void createJoint(int partA, int partB, b2Vec2 anchorA, b2Vec2 anchorB);
+        void joinParts(b2Body *bodyA, b2Body *bodyB, float x, float y, float angle);
+        b2DistanceJointDef* jointDeff;
 };
 
 #endif // RAGDOLL_H
