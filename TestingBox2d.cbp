@@ -44,6 +44,7 @@
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Arm.h" />
 		<Unit filename="include/Body.h" />
+		<Unit filename="include/Forearm.h" />
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/Head.h" />
 		<Unit filename="include/PartOfBody.h" />
@@ -54,6 +55,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Arm.cpp" />
 		<Unit filename="src/Body.cpp" />
+		<Unit filename="src/Forearm.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/Head.cpp" />
 		<Unit filename="src/PartOfBody.cpp" />

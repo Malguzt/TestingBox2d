@@ -1,11 +1,13 @@
 #ifndef RAGDOLL_H
 #define RAGDOLL_H
 
-#define NUM_OF_PARTS 4
+#define NUM_OF_PARTS 6
 #define HEAD 0
 #define BODY 1
 #define LEFT_ARM 2
 #define RIGHT_ARM 3
+#define LEFT_FOREARM 4
+#define RIGHT_FOREARM 5
 
 #include "PartOfBody.h"
 

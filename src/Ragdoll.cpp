@@ -1,6 +1,7 @@
 #include "Ragdoll.h"
 #include "Head.h"
 #include "Arm.h"
+#include "Forearm.h"
 #include "Body.h"
 #include "includes.h"
 #include <math.h>
@@ -27,10 +28,14 @@ void Ragdoll::createHeadAndBody()
 void Ragdoll::createArms()
 {
     parts[LEFT_ARM] = new Arm(world, window, 10.0f, 23.0f);
-    parts[RIGHT_ARM] = new Arm(world, window, 20.0f, 23.0f);
+    parts[LEFT_FOREARM] = new Forearm(world, window, 10.0f, 28.0f);
+    createJoint(BODY, LEFT_ARM, b2Vec2(-8.0f, -7.0f), b2Vec2(0.0f, -4.0f));
+    createJoint(LEFT_ARM, LEFT_FOREARM, b2Vec2(0.0f, 4.0f), b2Vec2(0.0f, -4.0f));
 
-    createJoint(BODY, LEFT_ARM, b2Vec2(-8.0f, -6.0f), b2Vec2(0.0f, -2.5f));
-    createJoint(BODY, RIGHT_ARM, b2Vec2(8.0f, -6.0f), b2Vec2(0.0f, -2.5f));
+    parts[RIGHT_ARM] = new Arm(world, window, 20.0f, 23.0f);
+    parts[RIGHT_FOREARM] = new Forearm(world, window, 20.0f, 28.0f);
+    createJoint(BODY, RIGHT_ARM, b2Vec2(8.0f, -7.0f), b2Vec2(0.0f, -4.0f));
+    createJoint(RIGHT_ARM, RIGHT_FOREARM, b2Vec2(0.0f, 4.0f), b2Vec2(0.0f, -4.0f));
 }
 
 void Ragdoll::createJoint(int partA, int partB, b2Vec2 anchorA, b2Vec2 anchorB)
