@@ -16,7 +16,7 @@ Forearm::~Forearm()
 void Forearm::defineBody(float x, float y)
 {
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(2.0f, 5.0f);
+    dynamicBox.SetAsBox(2.5f, 5.0f);
 
     createBody(dynamicBox, x, y);
 }

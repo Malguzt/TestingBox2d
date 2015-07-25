@@ -75,7 +75,7 @@ void Game::updateGame()
 {
 	phyWorld->Step(frameTime,8,8);
 	phyWorld->ClearForces();
-//	phyWorld->DrawDebugData();
+	phyWorld->DrawDebugData();
 	theRagdoll->updatePosition();
 }
 
@@ -96,18 +96,18 @@ void Game::initPhysics(){
 
 	//Create floor and walls
 
-	b2Body* groundBody = Game::CreateRectangularStaticBody(phyWorld,100,10);
-	groundBody->SetTransform(b2Vec2(50.0f,100.0f),0.0f);
+	b2Body* groundBody = Game::CreateRectangularStaticBody(phyWorld,1000,10);
+	groundBody->SetTransform(b2Vec2(500.0f,1000.0f),0.0f);
 
-	b2Body* leftWallBody = Game::CreateRectangularStaticBody(phyWorld,10,100);
-	leftWallBody->SetTransform(b2Vec2(0.0f,50.0f),0.0f);
+	b2Body* leftWallBody = Game::CreateRectangularStaticBody(phyWorld,10,1000);
+	leftWallBody->SetTransform(b2Vec2(0.0f,500.0f),0.0f);
 
-	b2Body* rightWallBody = Game::CreateRectangularStaticBody(phyWorld,10,100);
-	rightWallBody->SetTransform(b2Vec2(100.0f,50.0f),0.0f);
+	b2Body* rightWallBody = Game::CreateRectangularStaticBody(phyWorld,10,1000);
+	rightWallBody->SetTransform(b2Vec2(1000.0f,500.0f),0.0f);
 
 	//Create the ceiling
-	b2Body* topWallBody = Game::CreateRectangularStaticBody(phyWorld,100,10);
-	topWallBody->SetTransform(b2Vec2(50.0f,0.0f),0.0f);
+	b2Body* topWallBody = Game::CreateRectangularStaticBody(phyWorld,1000,10);
+	topWallBody->SetTransform(b2Vec2(500.0f,0.0f),0.0f);
 }
 
 b2Body* Game::CreateRectangularStaticBody(b2World *phyWorld, float sizeX, float sizeY){
@@ -146,7 +146,7 @@ b2FixtureDef Game::CreateRectangularFixtureDef(float sizeX, float sizeY, float d
 void Game::setZoom(){
 	View camara;
 
-	camara.setSize(100.0f, 100.0f);
-	camara.setCenter(50.0f, 50.0f);
+	camara.setSize(1000.0f, 1000.0f);
+	camara.setCenter(500.0f, 500.0f);
 	pWnd->setView(camara);
 }
