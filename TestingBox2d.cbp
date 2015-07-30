@@ -42,7 +42,17 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="cb.bmp" />
+		<Unit filename="img/arm.png" />
+		<Unit filename="img/ball.png" />
+		<Unit filename="img/barrel.png" />
+		<Unit filename="img/body.png" />
+		<Unit filename="img/footL.png" />
+		<Unit filename="img/footR.png" />
+		<Unit filename="img/forearm.png" />
+		<Unit filename="img/head.png" />
+		<Unit filename="img/leg.png" />
 		<Unit filename="include/Arm.h" />
+		<Unit filename="include/Barrel.h" />
 		<Unit filename="include/Body.h" />
 		<Unit filename="include/Foot.h" />
 		<Unit filename="include/Forearm.h" />
@@ -56,6 +66,7 @@
 		<Unit filename="libs/SFMLRenderer.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Arm.cpp" />
+		<Unit filename="src/Barrel.cpp" />
 		<Unit filename="src/Body.cpp" />
 		<Unit filename="src/Foot.cpp" />
 		<Unit filename="src/Forearm.cpp" />

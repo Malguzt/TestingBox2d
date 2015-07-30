@@ -11,7 +11,7 @@ class PartOfBody
         void draw();
         b2Body *body;
         void updatePosition();
-        void applyForce(float x, float y);
+        void applyForce(b2Vec2 force);
     protected:
         Texture *texture;
         Sprite *sprite;

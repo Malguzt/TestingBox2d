@@ -2,10 +2,12 @@
 1436655031 source:/home/jlenscak/games/TestingBox2d/main.cpp
 	"Game.h"
 
-1437333295 /home/jlenscak/games/TestingBox2d/include/Game.h
+1437953425 /home/jlenscak/games/TestingBox2d/include/Game.h
 	"includes.h"
 	"Ragdoll.h"
+	"Barrel.h"
 	"../libs/SFMLRenderer.h"
+	<vector>
 
 1436661010 /home/jlenscak/games/TestingBox2d/include/includes.h
 	<stdio.h>
@@ -21,7 +23,7 @@
 1437335838 source:/home/jlenscak/games/TestingBox2d/src/Ball.cpp
 	"Ball.h"
 
-1437532429 source:/home/jlenscak/games/TestingBox2d/src/Game.cpp
+1438135042 source:/home/jlenscak/games/TestingBox2d/src/Game.cpp
 	"Game.h"
 
 1436655587 source:/home/jlenscak/games/TestingBox2d/src/includes.cpp
@@ -34,10 +36,10 @@
 1437316506 /home/jlenscak/games/TestingBox2d/libs/SFMLRenderer.h
 	<SFML/Graphics.hpp>
 
-1437532602 /home/jlenscak/games/TestingBox2d/include/Ragdoll.h
+1437961895 /home/jlenscak/games/TestingBox2d/include/Ragdoll.h
 	"PartOfBody.h"
 
-1437532951 source:/home/jlenscak/games/TestingBox2d/src/Ragdoll.cpp
+1438134051 source:/home/jlenscak/games/TestingBox2d/src/Ragdoll.cpp
 	"Ragdoll.h"
 	"Head.h"
 	"Arm.h"
@@ -55,7 +57,7 @@
 	"includes.h"
 	<PartOfBody.h>
 
-1437354961 /home/jlenscak/games/TestingBox2d/include/PartOfBody.h
+1437962306 /home/jlenscak/games/TestingBox2d/include/PartOfBody.h
 	"includes.h"
 
 1437355005 source:/home/jlenscak/games/TestingBox2d/src/Body.cpp
@@ -64,7 +66,7 @@
 1437354977 /home/jlenscak/games/TestingBox2d/include/Body.h
 	<PartOfBody.h>
 
-1437362681 source:/home/jlenscak/games/TestingBox2d/src/PartOfBody.cpp
+1438134089 source:/home/jlenscak/games/TestingBox2d/src/PartOfBody.cpp
 	"PartOfBody.h"
 
 1437522546 source:/home/jlenscak/games/TestingBox2d/src/Arm.cpp
@@ -90,4 +92,11 @@
 
 1437530916 /home/jlenscak/games/TestingBox2d/include/Foot.h
 	<PartOfBody.h>
+
+1437968733 /home/jlenscak/games/TestingBox2d/include/Barrel.h
+	"includes.h"
+
+1437961456 source:/home/jlenscak/games/TestingBox2d/src/Barrel.cpp
+	"Barrel.h"
+	<math.h>
 

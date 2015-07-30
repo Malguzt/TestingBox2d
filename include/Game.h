@@ -3,7 +3,9 @@
 
 #include "includes.h"
 #include "Ragdoll.h"
+#include "Barrel.h"
 #include "../libs/SFMLRenderer.h"
+#include <vector>
 
 using namespace sf;
 using namespace std;
@@ -15,9 +17,10 @@ class Game
         virtual ~Game();
         void Go();
     private:
-        float impulseValue = 10000.0f;
+        float impulseValue = 1000000.0f;
         RenderWindow *pWnd;
-        Ragdoll *theRagdoll;
+        std::vector<Ragdoll*> ragdolls;
+        Barrel *theBarrel;
         b2World *phyWorld;
         SFMLRenderer *debugRender;
         float frameTime;

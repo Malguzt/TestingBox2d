@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-    pWnd = new RenderWindow(VideoMode(1280, 768), "Testin box2d");
+    pWnd = new RenderWindow(VideoMode(1280, 768), "Testing box2d");
 	pWnd->setVisible(true);
 	fps = 60;
 	pWnd->setFramerateLimit(fps);
@@ -11,12 +11,11 @@ Game::Game()
     setZoom();
 	initPhysics();
 
-    theRagdoll = new Ragdoll(phyWorld, pWnd);
+    theBarrel = new Barrel(phyWorld, pWnd, 20.0f, 80.0f);
 }
 
 Game::~Game()
 {
-    delete theRagdoll;
     delete phyWorld;
     delete pWnd;
 }
@@ -51,6 +50,8 @@ void Game::processEvent(Event &evt)
             processKey(evt.key.code);
             break;
         case Event::MouseButtonPressed:
+            ragdolls.push_back(new Ragdoll(phyWorld, pWnd, theBarrel->body->GetPosition().x + 60, theBarrel->body->GetPosition().y - 60));
+            ragdolls.back()->applyForce(LONG_MAX, -LONG_MAX);
             //board.checkClick(Vector2i(evt.mouseButton.x, evt.mouseButton.y), *pWnd);
             break;
     }
@@ -58,11 +59,6 @@ void Game::processEvent(Event &evt)
 
 void Game::processKey(int keyCode)
 {
-    if(Keyboard::isKeyPressed(Keyboard::Right)) theRagdoll->applyForce(impulseValue, 0.0f);
-    if(Keyboard::isKeyPressed(Keyboard::Left)) theRagdoll->applyForce(-impulseValue, 0.0f);
-    if(Keyboard::isKeyPressed(Keyboard::Up)) theRagdoll->applyForce(0.0f, -impulseValue);
-    if(Keyboard::isKeyPressed(Keyboard::Down)) theRagdoll->applyForce(0.0f, impulseValue);
-
     switch(keyCode)
     {
         case Keyboard::Escape:
@@ -74,14 +70,22 @@ void Game::processKey(int keyCode)
 void Game::updateGame()
 {
 	phyWorld->Step(frameTime,8,8);
-	phyWorld->ClearForces();
+//	phyWorld->ClearForces();
 	phyWorld->DrawDebugData();
-	theRagdoll->updatePosition();
+	theBarrel->updatePosition(Mouse::getPosition(*pWnd));
+	for (std::vector<Ragdoll*>::iterator it = ragdolls.begin(); it != ragdolls.end(); ++it)
+    {
+        (*it)->updatePosition();
+    }
 }
 
 void Game::drawGame()
 {
-    theRagdoll->draw();
+	for (std::vector<Ragdoll*>::iterator it = ragdolls.begin(); it != ragdolls.end(); ++it)
+    {
+        (*it)->draw();
+    }
+    theBarrel->draw();
 }
 
 void Game::initPhysics(){
@@ -92,7 +96,6 @@ void Game::initPhysics(){
 	debugRender = new SFMLRenderer(pWnd);
 	debugRender->SetFlags(UINT_MAX);
 	phyWorld->SetDebugDraw(debugRender);
-
 
 	//Create floor and walls
 

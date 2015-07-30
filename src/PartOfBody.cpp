@@ -41,9 +41,9 @@ void PartOfBody::updatePosition()
     sprite->setRotation(angle);
 }
 
-void PartOfBody::applyForce(float x, float y)
+void PartOfBody::applyForce(b2Vec2 force)
 {
-    body->ApplyLinearImpulse(b2Vec2(x, y), body->GetWorldCenter(), true);
+    body->SetLinearVelocity(force);
 }
 
 void PartOfBody::defineSize()
